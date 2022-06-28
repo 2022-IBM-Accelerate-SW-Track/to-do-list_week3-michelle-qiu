@@ -43,8 +43,9 @@ afterEach(() => {
   const dueDate = "05/30/2023";
   fireEvent.change(inputDate, { target: { value: dueDate}});
   fireEvent.click(element);
-  const check = screen.getByText(/History Test/i);
-  expect(check).not.toBeInTheDocument();
+  
+  const check = screen.getByText("You have no todo's left");
+  expect(check).toBeInTheDocument();
  });
 
  test('test that App component doesn\'t add a task without due date', () => {
@@ -55,8 +56,8 @@ afterEach(() => {
   const dueDate = "05/30/2023";
   fireEvent.change(inputTask, { target: { value: "History Test"}});
   fireEvent.click(element);
-  const check = screen.getByText(/History Test/i);
-  expect(check===null);
+  const check = screen.getByText("You have no todo's left");
+  expect(check).toBeInTheDocument();
  });
 
 
@@ -66,14 +67,16 @@ afterEach(() => {
   const inputTask = screen.getByRole('textbox', {name: /Add New Item/i});
   const inputDate = screen.getByPlaceholderText("mm/dd/yyyy");
   const element = screen.getByRole('button', {name: /Add/i});
-  const box = screen.getByRole('checkbox')
+  
   const dueDate = "05/30/2023";
   fireEvent.change(inputTask, { target: { value: "History Test"}});
   fireEvent.change(inputDate, { target: { value: dueDate}});
   fireEvent.click(element);
+  const box = screen.getByRole('checkbox')
+
   fireEvent.click(box);
-  const check = screen.getByText(/History Test/i);
-  expect(check===null);
+  const check = screen.getByText("You have no todo's left");
+  expect(check).toBeInTheDocument();
  });
 
 
